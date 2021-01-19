@@ -10,29 +10,29 @@ Integrantes del equipo
 
 Datos a utilizar:
 ------------------------
-Fuente : 'https://data.cityofchicago.org/Health-Human-Services/Food-Inspections/4ijn-s7e5/data'
-Número de registros : 215,026
-Número de columnas : 17
+* Fuente : 'https://data.cityofchicago.org/Health-Human-Services/Food-Inspections/4ijn-s7e5/data'
+* Número de registros : 215,026
+* Número de columnas : 17
 
 Variables : 
 ----------
-1- Inspection ID : ID de la inspección.
-2- DBA NAME : (Doing Business As) Nombre del establecimiento
-3- AKA NAME : (Also known as) Nombre alternativo del establecimiento
-4-License # : Número de licencia 
-5- Facility Type : Tipo de establecimiento
-6- Risk : Nivel de riesgo asociado
-7- Address : Dirección
-8- City : Ciudad
-9- State : Estado
-10- Zip : Código Postal
-11- Inspection Date : Fecha de inspección
-12- Inspection Type : Tipo de inspección
-13- Results : Resultado de la inspección
-14- Violations : Violaciones detectadas
-15- Latitude : Latitud 
-16- Longitude : Longitud
-17- Location : Ubicación
+* Inspection ID : ID de la inspección.
+* DBA NAME : (Doing Business As) Nombre del establecimiento
+* AKA NAME : (Also known as) Nombre alternativo del establecimiento
+* License # : Número de licencia 
+* Facility Type : Tipo de establecimiento
+* Risk : Nivel de riesgo asociado
+* Address : Dirección
+* City : Ciudad
+* State : Estado
+* Zip : Código Postal
+* Inspection Date : Fecha de inspección
+* Inspection Type : Tipo de inspección
+* Results : Resultado de la inspección
+* Violations : Violaciones detectadas
+* Latitude : Latitud 
+* Longitude : Longitud
+* Location : Ubicación
 
 
 Problema : 
