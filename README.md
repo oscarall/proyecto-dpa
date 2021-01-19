@@ -8,10 +8,12 @@ Integrantes del equipo
 * Pedro Latapi
 * Oscar Allan Ruiz Toledo
 
-Información a utilizar:
+Datos a utilizar:
+------------------------
 Fuente : 'https://data.cityofchicago.org/Health-Human-Services/Food-Inspections/4ijn-s7e5/data'
 Número de registros : 215,026
 Número de columnas : 17
+
 Variables : 
 ----------
 1- Inspection ID : ID de la inspección.
@@ -34,6 +36,8 @@ Variables :
 
 
 Problema : 
+--------------
 ¿Es posible predecir el resultado de una inspección sanitaria y cuales son los drivers de estos resultados?
 
 Frecuencia de actualización : Diaria
+-------------------------------------
