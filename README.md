@@ -44,5 +44,5 @@ Frecuencia de actualización : Diaria
 
 Nota : 
 --------------
-Para la correcta visualización del Jupyter Notebook es necesario especificar en la variable **PATH**
-la ruta en la que se encuentran el archivo **Food_Inspections.csv**
+Para la correcta visualización del notebook **EDA_foof_inspections.ipynb** es necesario actualizar
+la variable `PATH` con la ruta en la que se encuentran el archivo **Food_Inspections.csv**
