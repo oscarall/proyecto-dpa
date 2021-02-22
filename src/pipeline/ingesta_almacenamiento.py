@@ -24,7 +24,7 @@ def guardar_ingesta(bucket: str, bucket_path: str, data: bytes):
     key = f"{bucket_path}-{ingestion_date}.pkl"
     s3.put_object(Body=data, Key=key, Bucket=bucket)
 
-def ingesta_consecutiva(client: Socrata, date: str, limit=1000: int) -> bytes:
+def ingesta_consecutiva(client: Socrata, date: str, limit=1000) -> bytes:
     soql_query = f"inspection_date >= '{date}'"
     data = client.get(DATASET_ID, limit=limit, where=soql_query)
     return pickle.dumps(data)

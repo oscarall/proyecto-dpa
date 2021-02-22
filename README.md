@@ -54,8 +54,7 @@ pip install -r requirements.txt
 ¿Es posible predecir el resultado de una inspección sanitaria y cuales son los drivers de estos resultados?
 
 
-## Nota 
---------------
+## Nota
 Para la correcta visualización del notebook **EDA_foof_inspections.ipynb** es necesario actualizar
 la variable `PATH` con la ruta en la que se encuentran el archivo **Food_Inspections.csv**
 
@@ -135,3 +134,7 @@ data = ingesta_consecutiva(client, date, 1000)
 
 guardar_ingesta(bucket, path, data)
 ```
+
+### Nota
+
+Los scripts ejemplos se deben correr en la raíz del proyecto. Para correrlo en otro lugar habría que modificar la variable `CREDENTIALS_FILE` en el archivo `ingesta_almacenamiento.py` para modificar la ruta relativa.
