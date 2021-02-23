@@ -54,7 +54,10 @@ pip install -r requirements.txt
 ¿Es posible predecir el resultado de una inspección sanitaria y cuales son los drivers de estos resultados?
 
 
-## Nota
+## EDA
+
+En la carpeta `notebooks/eda` podrás encontrar un análsis exploratorio de los datos.
+
 Para la correcta visualización del notebook **EDA_foof_inspections.ipynb** es necesario actualizar
 la variable `PATH` con la ruta en la que se encuentran el archivo **Food_Inspections.csv**
 
