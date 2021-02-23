@@ -5,29 +5,35 @@ from datetime import date
 from sodapy import Socrata
 
 from src.utils.general import get_api_token, get_s3_credentials
-
-CREDENTIALS_FILE = "conf/local/credentials.yml"
-DATASET_ID = "4ijn-s7e5"
+from src.utils.constants import (
+    CREDENTIALS_FILE,
+    DATASET_ID,
+    BUCKET,
+    INGESTA_CONSECUTIVA_PATH,
+    INGESTA_INICIAL_PATH
+)
 
 def get_client() -> Socrata:
     token = get_api_token(CREDENTIALS_FILE)
     client = Socrata("data.cityofchicago.org", token)
     return client
 
-def ingesta_inicial(client, limit: int) -> bytes:
+def ingesta_inicial(client, limit: int):
     data = client.get(DATASET_ID, limit=limit)
-    return pickle.dumps(data)
+    guardar_ingesta(BUCKET, INGESTA_INICIAL_PATH, pickle.dumps(data))
 
 def guardar_ingesta(bucket: str, bucket_path: str, data: bytes):
     s3 = get_s3_resource()
     ingestion_date = date.today().strftime("%Y-%m-%d")
     key = f"{bucket_path}-{ingestion_date}.pkl"
-    s3.put_object(Body=data, Key=key, Bucket=bucket)
+    response = s3.put_object(Body=data, Key=key, Bucket=bucket)
+    print(response)
 
-def ingesta_consecutiva(client: Socrata, date: str, limit=1000) -> bytes:
+def ingesta_consecutiva(client: Socrata, date: str, limit=1000):
     soql_query = f"inspection_date >= '{date}'"
     data = client.get(DATASET_ID, limit=limit, where=soql_query)
-    return pickle.dumps(data)
+    print(len(data))
+    guardar_ingesta(BUCKET, INGESTA_CONSECUTIVA_PATH, pickle.dumps(data))
 
 def get_s3_resource():
     s3_credentials = get_s3_credentials(CREDENTIALS_FILE)

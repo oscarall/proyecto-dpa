@@ -81,20 +81,14 @@ El nombre del archivo deberá ser `credentials.yml`.
 client = get_client()
 ```
 
-2. Ejecutar la función `ingesta_inicial` o `ingesta_consecutiva` según sea el caso. Estas funciones pedirán al API de Socrata la información de las inspecciones. Para el caso de la función `ingesta inicial` solo recibe 2 parámetros: el cliente generado en el paso 1 y el límite de registros a consultar. Por su parte la función `ingesta_consecutiva` recibe los mismos parámetros de `ingesta_inicial` y además recibe la fecha a partir de la cual se quieren consultar registros. Ambos regresan los datos consultados serializados en binario usando el módulo [pickle](https://docs.python.org/3/library/pickle.html). 
+2. Ejecutar la función `ingesta_inicial` o `ingesta_consecutiva` según sea el caso. Estas funciones pedirán al API de Socrata la información de las inspecciones. Para el caso de la función `ingesta inicial` solo recibe 2 parámetros: el cliente generado en el paso 1 y el límite de registros a consultar. Por su parte la función `ingesta_consecutiva` recibe los mismos parámetros de `ingesta_inicial` y además recibe la fecha a partir de la cual se quieren consultar registros. Una vez que los datos se consultan se suben a [S3](https://aws.amazon.com/es/s3/). La función `guardar_ingesta` internamente crea un cliente para conectarse con el API de AWS usando la función `get_s3_resource`. Las credenciales para conectarse a AWS se obtienen del archivo `credentials.yml`. Los parámetros recibe `guardar_ingesta` son: el nombre del bucket, la ruta donde se guardará y los datos a guardar. Los datos consultados se guardan serializados en binario usando el módulo [pickle](https://docs.python.org/3/library/pickle.html).
 
 ```python
 # ingesta inicial
-data = ingesta_inicial(client, limit=250000)
+ingesta_inicial(client, limit=250000)
 
 # ingesta consecutiva
-data = ingesta_consecutiva(client, date="2021-02-21", limit=1000)
-```
-
-3. Por último, el resultado del paso 2 se debe almacenar en [S3](https://aws.amazon.com/es/s3/). La función `guardar_ingesta` internamente crea un cliente para conectarse con el API de AWS usando la función `get_s3_resource`. Las credenciales para conectarse a AWS se obtienen del archivo `credentials.yml`. Los parámetros recibe `guardar_ingesta` son: el nombre del bucket, la ruta donde se guardará y los datos a guardar. 
-
-```python
-guardar_ingesta("bucket", "ingestion/consecutive/consecutive-inspections", data)
+ingesta_consecutiva(client, date="2021-02-21", limit=1000)
 ```
 
 ### Ingesta inicial
@@ -104,17 +98,11 @@ Ejemplo de como generar la ingesta inicial
 ```python
 from src.pipeline.ingesta_almacenamiento import (
     get_client,
-    ingesta_inicial, 
-    guardar_ingesta
+    ingesta_inicial
 )
 
 client = get_client()
-bucket = "data-product-architecture-equipo-2"
-path = "ingestion/initial/historic-inspections"
-
-data = ingesta_inicial(client, 250000)
-
-guardar_ingesta(bucket, path, data)
+ingesta_inicial(client, 250000)
 ```
 
 ### Ingesta consecutiva
@@ -124,22 +112,14 @@ Ejemplo de como generar la ingesta consecutiva
 ```python
 from src.pipeline.ingesta_almacenamiento import (
     get_client,
-    ingesta_consecutiva, 
-    guardar_ingesta
+    ingesta_consecutiva
 )
 
 client = get_client()
-bucket = "data-product-architecture-equipo-2"
 date = "2021-02-17"
-path = "ingestion/consecutive/consecutive-inspections"
-
-data = ingesta_consecutiva(client, date, 1000)
-
-guardar_ingesta(bucket, path, data)
+ingesta_consecutiva(client, date, 1000)
 ```
 
 ### Nota
 
-Los scripts ejemplos se deben correr en la raíz del proyecto. Para correrlo en otro lugar habría que modificar la variable `CREDENTIALS_FILE` en el archivo `ingesta_almacenamiento.py` para modificar la ruta relativa.
-
-Del mismo modo se espera que el usuario tenga un bucket llamado **data-product-architecture-equipo-2**, a lo que en su defecto se tendrá que actualizar en los scripts de ejemplo la variable `bucket` 
+Los scripts ejemplos se deben correr en la raíz del proyecto. El proyecto está configurado esperando que el usuario tenga un bucket llamado **data-product-architecture-equipo-2**. En caso de necesitar modificar una variable como la ubicación del archivo `credentials.yml` o el nombre del bucket, éstas se encuentran en el archivo `src/utils/constants.py`

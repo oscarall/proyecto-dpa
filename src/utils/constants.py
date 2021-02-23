@@ -1,0 +1,5 @@
+CREDENTIALS_FILE = "conf/local/credentials.yml"
+DATASET_ID = "4ijn-s7e5"
+BUCKET = "data-product-architecture-equipo-2"
+INGESTA_INICIAL_PATH = "ingestion/initial/historic-inspections"
+INGESTA_CONSECUTIVA_PATH = "ingestion/consecutive/consecutive-inspections"
