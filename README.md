@@ -138,3 +138,5 @@ guardar_ingesta(bucket, path, data)
 ### Nota
 
 Los scripts ejemplos se deben correr en la raíz del proyecto. Para correrlo en otro lugar habría que modificar la variable `CREDENTIALS_FILE` en el archivo `ingesta_almacenamiento.py` para modificar la ruta relativa.
+
+Del mismo modo se espera que el usuario tenga un bucket llamado **data-product-architecture-equipo-2**, a lo que en su defecto se tendrá que actualizar en los scripts de ejemplo la variable `bucket` 
