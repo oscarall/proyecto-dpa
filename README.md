@@ -120,6 +120,30 @@ date = "2021-02-17"
 ingesta_consecutiva(client, date, 1000)
 ```
 
+## Corriendo los tasks en Luigi
+
+Actualizar las dependencias de tu virtual environment
+
+```bash
+pip install -r requirements.txt
+```
+
+Iniciar el servidor de Luigi
+
+```bash
+luigid --background
+```
+
+A partir de este momento ya se puede acceder desde tu navegador a la interfaz gráfica de Luigi en la dirección http://localhost:8082
+
+Para ejecutar los tasks, correr el siguiente comando en la raíz del proyecto
+
+```bash
+PYTHONPATH='.' luigi --module src.pipeline.luigi.almacenamiento Almacenamiento --ingesta inicial --date "2021-03-16"
+```
+
+Los parámetros de los tasks son `ingesta` y `date`, los valores posibles para `ingesta` son `inicial` y `consecutiva`. El formato de la fecha es `Y-m-d`. Esto correra los dos tasks en caso de ser necesario.
+
 ### Nota
 
 Los scripts ejemplos se deben correr en la raíz del proyecto. El proyecto está configurado esperando que el usuario tenga un bucket llamado **data-product-architecture-equipo-2**. En caso de necesitar modificar una variable como la ubicación del archivo `credentials.yml` o el nombre del bucket, éstas se encuentran en el archivo `src/utils/constants.py`
