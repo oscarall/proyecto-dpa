@@ -144,6 +144,8 @@ PYTHONPATH='.' luigi --module src.pipeline.luigi.almacenamiento Almacenamiento -
 
 Los parámetros de los tasks son `ingesta` y `date`, los valores posibles para `ingesta` son `inicial` y `consecutiva`. El formato de la fecha es `Y-m-d`. Esto correra los dos tasks en caso de ser necesario.
 
+![](images/luigi_dag_ingesta_almacenamiento.png)
+
 ### Nota
 
 Los scripts ejemplos se deben correr en la raíz del proyecto. El proyecto está configurado esperando que el usuario tenga un bucket llamado **data-product-architecture-equipo-2**. En caso de necesitar modificar una variable como la ubicación del archivo `credentials.yml` o el nombre del bucket, éstas se encuentran en el archivo `src/utils/constants.py`
