@@ -144,6 +144,8 @@ PYTHONPATH='.' luigi --module src.pipeline.luigi.almacenamiento Almacenamiento -
 
 Los parámetros de los tasks son `ingesta` y `date`, los valores posibles para `ingesta` son `inicial` y `consecutiva`. El formato de la fecha es `Y-m-d`. Esto correra los dos tasks en caso de ser necesario.
 
+![](images/luigi_ingesta_consecutiva.png)
+
 ![](images/luigi_dag_ingesta_almacenamiento.png)
 
 ### Nota
