@@ -12,13 +12,14 @@ from src.pipeline.luigi.almacenamiento_metadata import AlmacenamientoMetadata
 from src.pipeline.limpieza import clean_all
 from src.utils.constants import LIMPIEZA_PATH, BUCKET
 from src.pipeline.ingesta_almacenamiento import get_s3_resource
+from src.utils.task import DPATask
 
-class Limpieza(luigi.Task):
+class Limpieza(DPATask):
     ingesta = luigi.Parameter(default="consecutiva")
     date = luigi.Parameter(default=None)
 
     def requires(self):
-        return Almacenamiento(ingesta=self.ingesta, date=self.date), AlmacenamientoMetadata(ingesta=self.ingesta, date=self.date)
+        return AlmacenamientoMetadata(ingesta=self.ingesta, date=self.date)
 
     def run(self):
         data = None
@@ -27,7 +28,7 @@ class Limpieza(luigi.Task):
             "step": 3
         }
 
-        with self.input()[0][0].open("r") as input_target:
+        with self.input()[0].open("r") as input_target:
             data = input_target.read()
 
         inspect_df = pd.DataFrame.from_dict(pickle.loads(data))

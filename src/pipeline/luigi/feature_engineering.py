@@ -13,13 +13,14 @@ from src.pipeline.luigi.limpieza_metadata import LimpiezaMetadata
 from src.pipeline.feature_engineering import feature_engineering_all
 from src.utils.constants import FEATURE_ENGINEERING_PATH, BUCKET
 from src.pipeline.ingesta_almacenamiento import get_s3_resource
+from src.utils.task import DPATask
 
-class FeatureEngineering(luigi.Task):
+class FeatureEngineering(DPATask):
     ingesta = luigi.Parameter(default="consecutiva")
     date = luigi.Parameter(default=None)
 
     def requires(self):
-        return Limpieza(ingesta=self.ingesta, date=self.date), LimpiezaMetadata(ingesta=self.ingesta, date=self.date)
+        return LimpiezaMetadata(ingesta=self.ingesta, date=self.date)
 
     def run(self):
         data = None
@@ -28,7 +29,7 @@ class FeatureEngineering(luigi.Task):
             "step": 4
         }
 
-        with self.input()[0][0].open("r") as input_target:
+        with self.input()[0].open("r") as input_target:
             data = input_target.read()
 
         inspect_df = pd.read_csv(io.StringIO(data))

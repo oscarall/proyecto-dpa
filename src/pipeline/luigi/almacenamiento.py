@@ -12,13 +12,14 @@ from src.utils.constants import (
     INGESTA_CONSECUTIVA_PATH,
     INGESTA_INICIAL_PATH
 )
+from src.utils.task import DPATask
 
-class Almacenamiento(luigi.Task):
+class Almacenamiento(DPATask):
     ingesta = luigi.Parameter(default="consecutiva")
     date = luigi.Parameter(default=None)
 
     def requires(self):
-        return Ingesta(ingesta=self.ingesta, date=self.date), IngestaMetadata(ingesta=self.ingesta, date=self.date)
+        return IngestaMetadata(ingesta=self.ingesta, date=self.date)
     
     def run(self):
         data = None
@@ -26,7 +27,8 @@ class Almacenamiento(luigi.Task):
             "id": self.task_id,
             "step": 2
         }
-        with self.input()[0][0].open("r") as input_target:
+
+        with self.input()[0].open("r") as input_target:
             data = input_target.read()
 
         outputs = self.output()
