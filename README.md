@@ -82,6 +82,10 @@ db:
 
 El nombre del archivo deberá ser `credentials.yml`.
 
+### Esquema de base de datos
+
+Para los tasks de metadata es necesario correr el script de SQL que se encuentra en `sql/create_metadata_tables.sql` para crear la estructura necesaria para almacenar la metadata.
+
 ### Instalación
 
 Instalar las dependencias de tu virtual environment
