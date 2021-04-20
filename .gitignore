@@ -138,3 +138,5 @@ dmypy.json
 cython_debug/
 
 conf/local
+*.csv
+.DS_Store

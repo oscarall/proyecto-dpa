@@ -1,4 +1,3 @@
-import pickle
 import boto3
 
 from datetime import date
@@ -21,12 +20,12 @@ def get_client() -> Socrata:
 
 def ingesta_inicial(client, limit: int):
     data = client.get(DATASET_ID, limit=limit)
-    return pickle.dumps(data)
+    return data
 
 def ingesta_consecutiva(client: Socrata, date: str, limit=1000):
     soql_query = f"inspection_date >= '{date}'"
     data = client.get(DATASET_ID, limit=limit, where=soql_query)
-    return pickle.dumps(data)
+    return data
 
 def get_s3_resource():
     s3_credentials = get_s3_credentials(CREDENTIALS_FILE)
