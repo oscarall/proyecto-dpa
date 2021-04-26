@@ -109,7 +109,7 @@ def run_magic_loop(df):
     start = timer()
     dict_models = clf_loop(model_to_run, clfs, grid,x_train, x_test, y_train,y_test,  'random')
     end=timer()
-    tiempo = end-start
+    tiempo = end-starts
     d = {'descripcion': ['registros train',
                          'registros test', 
                          'tiempo',
