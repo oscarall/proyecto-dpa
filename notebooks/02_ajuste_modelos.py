@@ -105,7 +105,7 @@ def run_magic_loop(df):
     
     from timeit import default_timer as timer
     clfs,grid=define_clfs_params()
-    model_to_run=['RF']
+    model_to_run=['RF','LR']
     start = timer()
     dict_models = clf_loop(model_to_run, clfs, grid,x_train, x_test, y_train,y_test,  'random')
     end=timer()
