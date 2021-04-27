@@ -31,7 +31,7 @@ class Ingesta(luigi.Task):
         metadata["metadata"] = {
             "registros": len(data),
             "tipoIngesta": self.ingesta,
-            "fecha": self.date
+            "fecha": self.date,
         }
 
         with self.output()[0].open("w") as target:

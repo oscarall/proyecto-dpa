@@ -62,7 +62,7 @@ def clean_pre(inspect_df):
 def clean_duplicados(inspect_df):
     # Eliminamos duplicados de ID 
     inspect_df.drop_duplicates("inspection_id", inplace=True)
-    num_obs_elim_dupid = inspect_df.shape[0]
+    num_obs_elim_dupid = inspect_df.shape[0] - 1
     return inspect_df, num_obs_elim_dupid
 
 def clean_missing_num(inspect_df):

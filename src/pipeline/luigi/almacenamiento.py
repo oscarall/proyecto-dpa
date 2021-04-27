@@ -31,6 +31,9 @@ class Almacenamiento(DPATask):
         with self.input()[0].open("r") as input_target:
             data = input_target.read()
 
+        with self.input()[1].open("r") as metadata_target:
+            ingesta_metadata = json.loads(metadata_target.read())
+
         outputs = self.output()
 
         with outputs[0].open("w") as target:
@@ -38,6 +41,7 @@ class Almacenamiento(DPATask):
 
         metadata["metadata"] = {
             "path": outputs[0].path,
+            "registros": ingesta_metadata["metadata"]["registros"],
             "fecha": self.date,
             "tipoIngesta": self.ingesta
         }

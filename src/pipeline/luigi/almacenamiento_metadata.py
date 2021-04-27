@@ -1,7 +1,7 @@
 import luigi
 
 from src.utils.copytotable import DPACopyToTable
-from src.pipeline.luigi.almacenamiento import Almacenamiento
+from src.pipeline.luigi.almacenamiento_test import AlmacenamientoUnitTest
 
 
 class AlmacenamientoMetadata(DPACopyToTable):
@@ -9,4 +9,4 @@ class AlmacenamientoMetadata(DPACopyToTable):
     date = luigi.Parameter(default=None)
 
     def requires(self):
-        return Almacenamiento(ingesta=self.ingesta, date=self.date)
+        return AlmacenamientoUnitTest(ingesta=self.ingesta, date=self.date)

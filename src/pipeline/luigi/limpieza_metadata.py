@@ -1,7 +1,7 @@
 import luigi
 
 from src.utils.copytotable import DPACopyToTable
-from src.pipeline.luigi.limpieza import Limpieza
+from src.pipeline.luigi.limpieza_test import LimpiezaUnitTest
 
 
 class LimpiezaMetadata(DPACopyToTable):
@@ -9,4 +9,4 @@ class LimpiezaMetadata(DPACopyToTable):
     date = luigi.Parameter(default=None)
 
     def requires(self):
-        return Limpieza(ingesta=self.ingesta, date=self.date)
+        return LimpiezaUnitTest(ingesta=self.ingesta, date=self.date)

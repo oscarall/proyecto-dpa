@@ -117,14 +117,14 @@ A partir de este momento ya se puede acceder desde tu navegador a la interfaz gr
 Para ejecutar todos los tasks, correr el siguiente comando en la raíz del proyecto
 
 ```bash
-PYTHONPATH='.' luigi --module src.pipeline.luigi.feature_engineering_metadata FeatureEngineeringMetadata --ingesta consecutiva --date "2021-04-08"
+PYTHONPATH='.' luigi --module src.pipeline.luigi.seleccion_metadata SeleccionMetadata --ingesta consecutiva --date "2021-04-06"
 ```
 
 Los parámetros de los tasks son `ingesta` y `date`, los valores posibles para `ingesta` son `inicial` y `consecutiva`. El formato de la fecha es `Y-m-d`. Esto correra los dos tasks en caso de ser necesario.
 
-![](images/luigi_fe.png)
+![](images/luigi_dag_seleccion.png)
 
-![](images/luigi_dag_fe_metadata.png)
+![](images/luigi_seleccion.png)
 
 ### Nota
 

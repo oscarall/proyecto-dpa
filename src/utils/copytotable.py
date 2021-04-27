@@ -1,5 +1,4 @@
 import json
-import luigi
 
 from luigi.contrib.postgres import CopyToTable
 from src.utils.general import get_db_credentials
@@ -18,7 +17,7 @@ class DPACopyToTable(CopyToTable):
     columns = ["step", "task_id","metadata"]
 
     def rows(self):
-        with self.input()[1].open("r") as input_target:
+        with self.requires().input()[1].open("r") as input_target:
             data = input_target.read()
         
         metadata = json.loads(data)

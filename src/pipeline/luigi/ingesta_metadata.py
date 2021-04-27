@@ -1,7 +1,7 @@
 import luigi
 
 from src.utils.copytotable import DPACopyToTable
-from src.pipeline.luigi.ingesta import Ingesta
+from src.pipeline.luigi.ingesta_test import IngestaUnitTest
 
 
 class IngestaMetadata(DPACopyToTable):
@@ -9,4 +9,4 @@ class IngestaMetadata(DPACopyToTable):
     date = luigi.Parameter(default=None)
 
     def requires(self):
-        return Ingesta(ingesta=self.ingesta, date=self.date)
+        return IngestaUnitTest(ingesta=self.ingesta, date=self.date)

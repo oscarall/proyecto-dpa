@@ -1,7 +1,7 @@
 import luigi
 
 from src.utils.copytotable import DPACopyToTable
-from src.pipeline.luigi.feature_engineering import FeatureEngineering
+from src.pipeline.luigi.feature_engineering_test import FeatureEngineeringUnitTest
 
 
 class FeatureEngineeringMetadata(DPACopyToTable):
@@ -9,4 +9,4 @@ class FeatureEngineeringMetadata(DPACopyToTable):
     date = luigi.Parameter(default=None)
 
     def requires(self):
-        return FeatureEngineering(ingesta=self.ingesta, date=self.date)
+        return FeatureEngineeringUnitTest(ingesta=self.ingesta, date=self.date)
