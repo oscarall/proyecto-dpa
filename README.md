@@ -120,7 +120,7 @@ Para ejecutar todos los tasks, correr el siguiente comando en la raíz del proye
 PYTHONPATH='.' luigi --module src.pipeline.luigi.seleccion_metadata SeleccionMetadata --ingesta consecutiva --date "2021-04-06"
 ```
 
-Los parámetros de los tasks son `ingesta` y `date`, los valores posibles para `ingesta` son `inicial` y `consecutiva`. El formato de la fecha es `Y-m-d`. Esto correra los dos tasks en caso de ser necesario.
+Los parámetros de los tasks son `ingesta` y `date`, los valores posibles para `ingesta` son `inicial` y `consecutiva`. El formato de la fecha es `Y-m-d`. Esto correra los 18 tasks en caso de ser necesario.
 
 ![](images/luigi_dag_seleccion.png)
 
