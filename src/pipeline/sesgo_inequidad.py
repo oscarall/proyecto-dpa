@@ -27,9 +27,7 @@ def sesgo_inequidad(df_final, transform_final):
 
     #Bias
     bias = Bias()
-    bdf = bias.get_disparity_predefined_groups(xtab, original_df=df_aequitas, 
-                                        ref_groups_dict={'zip_code':'zip_60611.0'}, 
-                                        alpha=0.05)
+    bdf = bias.get_disparity_major_group(xtab, original_df=df_aequitas)
 
     bdf_ = bdf[['attribute_name', 'attribute_value'] +
          bias.list_disparities(bdf)].round(2)
@@ -53,6 +51,7 @@ def sesgo_inequidad(df_final, transform_final):
     metadata_aequitas = { 
         'registros_total': df_aequitas.shape[0],
         'columnas_total': df_aequitas.shape[1],
+        'registros_bias': df_bias_fairness.shape[0]
     }
         
     return df_bias_fairness, metadata_aequitas

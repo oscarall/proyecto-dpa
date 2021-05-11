@@ -1,8 +1,6 @@
 import marbles.core
 import pickle
 import json
-import pandas as pd
-import io
 
 class SesgoInequidadTest(marbles.core.TestCase):
     data = None
@@ -18,14 +16,9 @@ class SesgoInequidadTest(marbles.core.TestCase):
         with self.metadata.open('r') as ingesta_metadata:
             test_metadata = json.loads(ingesta_metadata.read())
 
-        inspect_df = pd.read_csv(io.StringIO(test_data))
+        inspect_df = pickle.loads(test_data)
         
         self.assertEqual(
-            test_metadata["metadata"]["columnas_total"], 
-            len(inspect_df.columns)-1
-        )
-        
-        self.assertEqual(
-            test_metadata["metadata"]["registros_total"], 
+            test_metadata["metadata"]["registros_bias"], 
             len(inspect_df.index)
-        )       
+        )

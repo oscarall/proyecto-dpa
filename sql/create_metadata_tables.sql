@@ -33,4 +33,5 @@ VALUES 	('ingesta'),
 		('limpieza'), 
 		('feature engineering'),
 		('entrenamiento'),
-		('seleccion de modelo');
+		('seleccion de modelo'),
+		('sesgo e inequidad');

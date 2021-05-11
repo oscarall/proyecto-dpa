@@ -1,12 +1,12 @@
 import luigi
 
 from src.utils.copytotable import DPACopyToTable
-from src.pipeline.luigi.sesgo_inequidad_test import sesgo_inequidadUnitTest
+from src.pipeline.luigi.sesgo_inequidad_test import SesgoeInequidadUnitTest
 
 
-class sesgo_inequidadMetadata(DPACopyToTable):
+class SesgoInequidadMetadata(DPACopyToTable):
     ingesta = luigi.Parameter(default="consecutiva")
     date = luigi.Parameter(default=None)
 
     def requires(self):
-        return sesgo_inequidadUnitTest(ingesta=self.ingesta, date=self.date)
+        return SesgoeInequidadUnitTest(ingesta=self.ingesta, date=self.date)

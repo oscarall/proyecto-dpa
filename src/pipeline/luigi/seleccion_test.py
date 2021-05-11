@@ -1,6 +1,4 @@
 import luigi
-import unittest
-import sys
 
 from src.pipeline.luigi.seleccion import Seleccion
 from src.utils.test_task import DPATestTask
