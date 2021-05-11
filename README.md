@@ -61,6 +61,26 @@ En la carpeta `notebooks/eda` podrás encontrar un análsis exploratorio de los 
 Para la correcta visualización del notebook **EDA_foof_inspections.ipynb** es necesario actualizar
 la variable `PATH` con la ruta en la que se encuentran el archivo **Food_Inspections.csv**
 
+## Sesgo e Inequidad
+
+Para `food_inspections` como atributos protegidos detectamos las variables **Facility Type** y **Zip** 
+las cuales considermos son representativas y pueden ser un proxy para los demás atributos de interés.
+
+Para fines prácticos nos enfocamos en el atributo `Zip` que está constituido por 59 grupos (zip codes) 
+y elegimos como grupo de referencia aquel que historicamente tiene una ventaja. Para esto calculamos la 
+proporción de establecimientos que pasaron las pruebas de inspección y concluimos que el **zip 60611**
+respresenta el grupo en el que generalmente los establecimientos aprobaron las inspecciones 
+en un 94% de las veces.
+
+Nuestro modelo fue trabajado como **punitivo** ya que el resultado de pasar o no la prueba de inspección
+implica que estaríamos "quitando" la libertad de operar al establecimiento y no nos gustaría equivocarnos
+cuando aprobemos erroneamente una inspección ya que esto traería perjuicios a la salud pública.
+
+Finalmente las métricas empleadas fueron **FPR** (asociado a Precision) ya que estamos interesados en 
+identificar la proporción de Falsos Positivos que existen entre todas las etiquetas que son negativas y
+**FDR** (asociado a Recall) ya que queremos identificar la proporción de Falsos Positivos que existen entre
+todas las etiquetas predichas como positivas con el fin de conocer si hay sesgo hacia un grupo.
+
 
 ## Corriendo los tasks en Luigi
 
