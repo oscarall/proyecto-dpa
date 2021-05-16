@@ -24,6 +24,7 @@ entrypoints==0.3
 Flask==0.12.2
 Flask-Bootstrap==3.3.7.1
 Flask-Restplus==0.1
+Flask-SQLAlchemy==0.8
 greenlet==1.1.0
 html5lib==1.1
 httplib2==0.19.1
