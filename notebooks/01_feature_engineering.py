@@ -23,7 +23,7 @@ def feature_engineering_all(df):
     df = enc_risk(df)
     df = enc_insp_type(df)
     df = enc_label(df)
-	df = comp_columns(df)
+    df = comp_columns(df)
     df_train, df_test = sep_train_test(df)
     df_final = df_train.append(df_test)
     d = {'descripcion': ['registros total encoding',
