@@ -20,7 +20,7 @@ class Match(db.Model):
     __tablename__ = 'mockup_match_api'
 
     inspection_id = db.Column(db.Integer, primary_key = True)
-    score = db.Column(db.Integer)
+    pred = db.Column(db.Integer)
     fecha_prediccion = db.Column(db.DateTime)
 
     def __repr__(self):
@@ -29,7 +29,7 @@ class Match(db.Model):
 #model id
 model = api.model("id_match_table", {
     'inspection_id': fields.Integer,
-    'score': fields.Integer,
+    'pred': fields.Integer,
 })
 
 model_list = api.model("id_match_output", {
@@ -38,22 +38,16 @@ model_list = api.model("id_match_output", {
 })
 
 #endpoints
-
-@api.route('/')
-class HelloWorld(Resource):
-    def get(self):
-        return {'Hello' : 'Equipo 2!'}
-
-@api.route('/match score/<int:inspection_id>')
-class ShowScoreID(Resource):
+@api.route('/match pred/<int:inspection_id>')
+class ShowPredID(Resource):
     def get(self, inspection_id):
         match = Match.query.filter_by(inspection_id=inspection_id).order_by(Match.inspection_id.desc()).all
-        score = []
+        pred = []
         for element in match:
-            score.append({'score': element.score,
+            pred.append({'prediccion': element.pred,
                           'fecha_prediccion': element.fecha_prediccion
                           })
-        return {'inspection_id': inspection_id, 'score' : score}
+        return {'inspection_id': inspection_id, 'prediccion' : pred}
 
 @api.route('/match inspection_id/<any:fecha_prediccion>')
 class ShowFechaPrediccion(Resource):
@@ -62,9 +56,9 @@ class ShowFechaPrediccion(Resource):
         inspection_id= []
         for element in match:
             inspection_id.append({'inspection_id': element.inspection_id,
-                          'score': element.score,
+                          'prediccion': element.pred,
                           })
-        return {'fecha_prediccion': fecha_prediccion, 'inspection_id': inspection_id}
+        return {'fecha_prediccion': fecha_prediccion, 'inspection_id': inspection_id, 'prediccion':pred}
 
 if __name__ == '__main__':
     app.run(debug=True)
