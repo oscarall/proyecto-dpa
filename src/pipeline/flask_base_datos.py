@@ -5,11 +5,11 @@ from flask_restplus import Api, Resource, fields
 from src.utils.general import get_db_conn_sql_alchemy
 
 #Connect to DB
-db_conn_str = get_db_conn_sql_alchemy('../../conf/local/credentials.yml')
+db_conn_str = get_db_conn_sql_alchemy('../../conf/base/credentials.yml')
 
 #create flask app
 app = Flask(__name__)
-app.config('SQLALCHEMY_DATABASE_URI') = db_conn_str
+app.config['SQLALCHEMY_DATABASE_URI'] = db_conn_str
 api = Api(app)
 
 db = SQLAlchemy(app)
@@ -37,7 +37,7 @@ model_list = api.model("id_match_output", {
     'total_prediccion' : fields.Nested(model)
 })
 
-#endpoings
+#endpoints
 
 @api.route('/')
 class HelloWorld(Resource):
@@ -55,7 +55,7 @@ class ShowScoreID(Resource):
                           })
         return {'inspection_id': inspection_id, 'score' : score}
 
-@api.route('/match inspection_id/<DateTime:fecha_prediccion>')
+@api.route('/match inspection_id/<any:fecha_prediccion>')
 class ShowFechaPrediccion(Resource):
     def get(self, fecha_prediccion):
         match = Match.query.filter_by(fecha_prediccion=fecha_prediccion).order_by(Match.fecha_prediccion.desc()).all
