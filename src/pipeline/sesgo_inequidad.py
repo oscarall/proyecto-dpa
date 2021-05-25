@@ -14,7 +14,7 @@ def sesgo_inequidad(df_final, transform_final):
     
     y_predict = pd.DataFrame(transform_final.predict(x_df), columns = ['score']).reset_index(drop=True)
     
-    ZC = df_final.iloc[:, 83:142] #ZIP Codes
+    ZC = df_final.filter(regex=("zip_.*")) #ZIP Codes
     ZipCode = pd.DataFrame(ZC.idxmax(1), columns = ['zip_code']).reset_index(drop=True) #Reverse One Hot Encoding for ZIP Code
     
     df_aequitas = pd.concat([y_predict, y_df, ZipCode], axis=1)

@@ -14,7 +14,7 @@ def sesgo_inequidad(df_final, transform_final):
     
     y_predict = pd.DataFrame(transform_final.predict(x_df), columns = ['score']).reset_index(drop=True)
     
-    ZC = df_final.iloc[:, 83:142] #ZIP Codes
+    ZC = df_final.filter(regex=("zip_.*")) #ZIP Codes
     ZipCode = pd.DataFrame(ZC.idxmax(1), columns = ['zip_code']).reset_index(drop=True) #Reverse One Hot Encoding for ZIP Code
     
     df_aequitas = pd.concat([y_predict, y_df, ZipCode], axis=1)
@@ -27,9 +27,10 @@ def sesgo_inequidad(df_final, transform_final):
 
     #Bias
     bias = Bias()
-    bdf = bias.get_disparity_predefined_groups(xtab, original_df=df_aequitas, 
-                                        ref_groups_dict={'zip_code':'zip_60611.0'}, 
-                                        alpha=0.05)
+    #bdf = bias.get_disparity_predefined_groups(xtab, original_df=df_aequitas, 
+    #                                    ref_groups_dict={'zip_code':'zip_60611.0'}, 
+    #                                    alpha=0.05)
+    bdf = bias.get_disparity_major_group(xtab, original_df=df_aequitas)
 
     bdf_ = bdf[['attribute_name', 'attribute_value'] +
          bias.list_disparities(bdf)].round(2)
