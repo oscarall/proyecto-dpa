@@ -26,15 +26,12 @@ def feature_engineering_all(df):
     df = comp_columns(df)
     df_train, df_test = sep_train_test(df)
     df_final = df_train.append(df_test)
-    d = {'descripcion': ['registros total encoding',
-                         'columnas total encoding',
-                         'registros train', 
-                         'registros test']
-                        , 'valor': [df_final.shape[0],
-                                    df_final.shape[1],
-                                    df_train.shape[0],
-                                    df_test.shape[0]]}
-    metadata_fe = pd.DataFrame(data=d) 
+    metadata_fe = {
+        'registros total encoding': df_final.shape[0],
+        'columnas total encoding': df_final.shape[1],
+        'registros train': df_train.shape[0], 
+        'registros test': df_test.shape[0]
+    }
     return df_final, metadata_fe
 
 def d_cols_inicial(df):

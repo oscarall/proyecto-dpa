@@ -35,7 +35,7 @@ class FeatureEngineering(DPATask):
         inspect_df = pd.read_csv(io.StringIO(data))
 
         fe_data, fe_metadata = feature_engineering_all(inspect_df)
-        fe_data_csv = fe_data.to_csv()
+        fe_data_csv = fe_data.to_csv(index_label=False)
 
         metadata["metadata"] = fe_metadata
 

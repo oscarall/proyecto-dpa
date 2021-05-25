@@ -8,44 +8,51 @@ import luigi.contrib.s3
 import io
 
 from datetime import date
-from src.pipeline.luigi.entrenamiento_metadata import EntrenamientoMetadata // REVISAR
-from src.pipeline.seleccion import model_select // REVISAR
-from src.utils.constants import SELECCION_PATH, BUCKET // REVISAR
+from src.pipeline.luigi.seleccion import Seleccion
+from src.pipeline.luigi.feature_engineering_metadata import FeatureEngineeringMetadata
+from src.pipeline.prediccion import predict
+from src.utils.constants import PREDICCION_PATH, BUCKET
 from src.pipeline.ingesta_almacenamiento import get_s3_resource
-from src.utils.task import DPATask
 
-class sesgo_inequidad(DPATask):
+class Prediccion(luigi.Task):
     ingesta = luigi.Parameter(default="consecutiva")
     date = luigi.Parameter(default=None)
 
     def requires(self):
-        return sesgo_inequidadMetadata(ingesta=self.ingesta, date=self.date)
+        return Seleccion(ingesta=self.ingesta, date=self.date), FeatureEngineeringMetadata(ingesta=self.ingesta, date=self.date)
 
     def run(self):
         data = None
         metadata = {
             "id": self.task_id,
-            "step": 3 // REVISAR
+            "step": 8
         }
 
         with self.input()[0].open("r") as input_target:
             data = input_target.read()
 
-        inspect_df = pd.read_csv(io.StringIO(data))
+        fe_input = self.requires()[1].requires().input()[0]
 
-        sesgo_inequidad_data, sesgo_inequidad_metadata = sesgo_inequidad(inspect_df)
+        with fe_input.open("r") as fe_target:
+            fe_data = fe_target.read()
 
-        metadata["metadata"] = inequidad_sesgo_metadata
+        model = pickle.loads(data)
+        inspect_df = pd.read_csv(io.StringIO(fe_data))
+
+        predict_data, predict_metadata = predict(inspect_df, model)
+
+        metadata["metadata"] = predict_metadata
 
         with self.output()[0].open("w") as target:
-            target.write(sesgo_inequidad_data_csv)
+            target.write(pickle.dumps(predict_data))
         
         with self.output()[1].open("w") as metadata_target:
             metadata_target.write(json.dumps(metadata))
-            
+
+
     def output(self):
         file_date = self.date or date.today().strftime("%Y-%m-%d")
-        path = SESGO_INEQUIDAD_PATH
+        path = PREDICCION_PATH
         output_path = "s3://{}/{}/{}-{}.pkl".format(BUCKET, path, self.ingesta, file_date)
         s3_client = get_s3_resource()
         return luigi.contrib.s3.S3Target(
@@ -53,5 +60,5 @@ class sesgo_inequidad(DPATask):
             format=luigi.format.Nop,
             client=s3_client
         ), luigi.LocalTarget(
-            os.path.join(tempfile.gettempdir(), "sesgo_inequidad", f"sesgo_inequidad-metadata-{self.ingesta}-{self.date}.json")
+            os.path.join(tempfile.gettempdir(), "prediccion", f"prediccion-metadata-{self.ingesta}-{self.date}.json")
         )

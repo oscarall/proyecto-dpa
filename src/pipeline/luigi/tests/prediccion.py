@@ -4,7 +4,8 @@ import json
 import pandas as pd
 import io
 
-class FeatureEngineeringTest(marbles.core.TestCase):
+
+class PrediccionTest(marbles.core.TestCase):
     data = None
     metadata = None
 
@@ -18,14 +19,13 @@ class FeatureEngineeringTest(marbles.core.TestCase):
         with self.metadata.open('r') as ingesta_metadata:
             test_metadata = json.loads(ingesta_metadata.read())
 
-        inspect_df = pd.read_csv(io.StringIO(test_data))
-        
-        self.assertEqual(
-            test_metadata["metadata"]["columnas total encoding"], 
-            len(inspect_df.columns)
+        predictions = pickle.loads(test_data)
+
+        self.assertEquals(
+            predictions.shape[0], 
+            test_metadata["metadata"]["registros predichos"], 
+            "Hay diferencia en el número de registros"
         )
         
-        self.assertEqual(
-            test_metadata["metadata"]["registros total encoding"], 
-            len(inspect_df.index)
-        )
+        
+        

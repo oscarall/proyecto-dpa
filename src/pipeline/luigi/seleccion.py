@@ -53,12 +53,10 @@ class Seleccion(DPATask):
     def output(self):
         file_date = self.date or date.today().strftime("%Y-%m-%d")
         path = SELECCION_PATH
-        output_path = "s3://{}/{}/{}-{}.pkl".format(BUCKET, path, self.ingesta, file_date)
+        output_path = "s3://{}/{}/{}.pkl".format(BUCKET, path, "modelo_f")
         s3_client = get_s3_resource()
         return luigi.contrib.s3.S3Target(
             path=output_path,
             format=luigi.format.Nop,
             client=s3_client
-        ), luigi.LocalTarget(
-            os.path.join(tempfile.gettempdir(), "seleccion", f"seleccion-metadata-{self.ingesta}-{self.date}.json")
         )
