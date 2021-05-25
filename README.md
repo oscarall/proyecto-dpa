@@ -104,7 +104,7 @@ El nombre del archivo deberá ser `credentials.yml`.
 
 ### Esquema de base de datos
 
-Para los tasks de metadata es necesario correr el script de SQL que se encuentra en `sql/create_metadata_tables.sql` para crear la estructura necesaria para almacenar la metadata.
+Para los tasks de metadata es necesario correr los scripts de SQL que se encuentran en `sql/create_metadata_tables.sql` y `sql/create_score_tables.sql` para crear la estructura necesaria para almacenar la metadata.
 
 ### Instalación
 
