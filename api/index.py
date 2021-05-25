@@ -81,7 +81,7 @@ class ShowPredID(Resource):
 @ns.route('/')
 @ns.doc(params={'date': {'description': 'Date to search in format YYYY-mm-dd', 'in': 'query', 'type': 'string'}})
 class ShowFechaPrediccion(Resource):
-    @ns.response(200, description="")
+    @ns.response(200, "Ok", model=[inspection])
     def get(self):
         date = request.args.get('date', None)
         query = Scores.query
