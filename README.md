@@ -162,4 +162,4 @@ Para iniciar el servidor de Flask es necesario correr el siguiente comando en la
 FLASK_APP=api/index.py flask run
 ```
 
-Esto iniciará el API y se podrá acceder en `http://127.0.0.1:5000`
+Esto iniciará el API y se podrá acceder en `http://127.0.0.1:5000`, ahí mismo se puede consultar la documentación de los endpoints y hacer pruebas sobre los mismos.
