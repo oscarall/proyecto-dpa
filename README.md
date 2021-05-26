@@ -100,11 +100,11 @@ db:
   port: your_postgres_db_port
 ```
 
-El nombre del archivo deberá ser `credentials.yml`.
+El nombre del archivo deberá ser `credentials.yml`. De igual manera se espera que se tenga un modelo entrenado en S3 con el nombre `models/modelo_f.pkl`, de otra manera se hará el entrenamiento en el momento y se generará un modelo nuevo. 
 
 ### Esquema de base de datos
 
-Para los tasks de metadata es necesario correr los scripts de SQL que se encuentran en `sql/create_metadata_tables.sql` y `sql/create_score_tables.sql` para crear la estructura necesaria para almacenar la metadata.
+Para los tasks de metadata es necesario correr los scripts de SQL que se encuentran en `sql/create_metadata_tables.sql` y `sql/create_score_tables.sql` para crear la estructura necesaria para almacenar la metadata y las predicciones para el API.
 
 ### Instalación
 
@@ -153,3 +153,13 @@ Los parámetros de los tasks son `ingesta` y `date`, los valores posibles para `
 ### Nota
 
 Los scripts ejemplos se deben correr en la raíz del proyecto. El proyecto está configurado esperando que el usuario tenga un bucket llamado **data-product-architecture-equipo-2**. En caso de necesitar modificar una variable como la ubicación del archivo `credentials.yml` o el nombre del bucket, éstas se encuentran en el archivo `src/utils/constants.py`
+
+## Corriendo el API
+
+Para iniciar el servidor de Flask es necesario correr el siguiente comando en la raíz del proyecto
+
+```bash
+FLASK_APP=api/index.py flask run
+```
+
+Esto iniciará el API y se podrá acceder en `http://127.0.0.1:5000`
