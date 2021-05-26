@@ -137,14 +137,18 @@ A partir de este momento ya se puede acceder desde tu navegador a la interfaz gr
 Para ejecutar todos los tasks, correr el siguiente comando en la raíz del proyecto
 
 ```bash
-PYTHONPATH='.' luigi --module src.pipeline.luigi.sesgo_inequidad_metadata SesgoInequidadMetadata --ingesta consecutiva --date "2021-04-29"
+PYTHONPATH='.' luigi --module src.pipeline.luigi.prediccion_metadata PrediccionMetadata --ingesta consecutiva --date "2021-05-17"
+PYTHONPATH='.' luigi --module src.pipeline.luigi.api Api --ingesta consecutiva --date "2021-05-17"
+PYTHONPATH='.' luigi --module src.pipeline.luigi.monitor Monitor --ingesta consecutiva --date "2021-05-17"
 ```
 
 Los parámetros de los tasks son `ingesta` y `date`, los valores posibles para `ingesta` son `inicial` y `consecutiva`. El formato de la fecha es `Y-m-d`. Esto correra los 21 tasks en caso de ser necesario.
 
-![](images/luigi_dag_sesgo.png)
+![](images/luigi_dag_predict_api.png)
 
-![](images/luigi_sesgo.png)
+![](images/luigi_predict.png)
+
+![](images/luigi_api.png)
 
 ### Nota
 
